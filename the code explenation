@@ -1,1 +1,31 @@
+import os :The 'os' module in Python provides a way of using operating system dependent functionality, like reading or writing to the file system, and getting information about files and directories
+Import shutil:Python's shutil module provides a high-level interface for working with files and collections of files. It includes functions for copying, moving, and deleting files and directories, and offers more advanced operations than the basic os module.
+Main_file:is file that i want to stay out (not enter any folder for a reason)
+When it comes to the directory path they are changeable from one computer to an other 
+In this case the principal folder is the downloads and the others are sub-folders {documents,audio,pictures,videos,programming}
+The file format lists 
+the file formats differs for which of file we are using in this case i have used the common one in case the code do not work well the file format can be one reason make sure it is included on the list by updatin the code 
+os.listdir (downloads):used to get a list of all the files in the downloads directory, which is assigned to the variable files. 
+the line file_ext = file.split('.')[-1].lower() is used to extract the file extension from the filename, convert it to lowercase, and assign it to the variable file_ext.
+the detailed explenation of file.split('.')[-1].lower()
+file.split('.'): This method splits the file string into two parts wherever it finds the dot character (.), and returns a list containing these parts.
+[-1]: This index selects the last element of the list returned by file.split('.'), which corresponds to the file extension.
+file.split('.')[-1]: This returns the file extension as a string.
+So, for example, if file contains the string "my_document.docx", then file.split('.') will return the list ["my_document", "docx"], and file.split('.')[-1] will return "docx".
+now we come to the most important part of the code which the condition blocks since it is repeated for the whole folders we are just going to take one and analyze one :
+if file_ext in doc_file_formats:
+        src_file_path = os.path.join(downloads, file)
+        if not os.path.exists(documents_folder):
+            os.mkdir(documents_folder)
+        dst_file_path = os.path.join(documents_folder, file)
+        if not os.path.exists(dst_file_path):
+            shutil.move(src_file_path, dst_file_path)
+This block of code checks if the file extension file_ext of the current file in the loop is in the list of document file formats doc_file_formats. If it is, it creates the source file path src_file_path by joining the downloads directory with the current file name.
 
+Next, it checks if the documents_folder directory exists or not. If it does not exist, it creates it using os.mkdir(documents_folder).
+
+Then, it creates the destination file path dst_file_path by joining the documents_folder directory with the current file name.
+
+Finally, it checks if the dst_file_path does not exist already. If it does not exist, it moves the file from src_file_path to dst_file_path using shutil.move(src_file_path, dst_file_path).
+
+So, in summary, this code block moves a file with a document file format from the downloads directory to the documents_folder directory.
